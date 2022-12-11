@@ -1,12 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"imbmax.com/n2t/vm/log"
 	"imbmax.com/n2t/vm/parser"
 	"os"
 	"strings"
-		"bufio"
 )
 
 func check(e error) {
@@ -16,7 +16,6 @@ func check(e error) {
 }
 
 func main() {
-	fmt.Println("this is the vm", parser.Parse())
 
 	fmt.Println("this is another test", len(os.Args))
 
@@ -34,13 +33,17 @@ func main() {
 	fmt.Println(string(dat))
 	fmt.Printf("lenght %d\n", len(string(dat)))
 
-	var lines[]string
+	var lines []string
 	sc := bufio.NewScanner(strings.NewReader(string(dat)))
 	for sc.Scan() {
 		lines = append(lines, sc.Text())
 	}
 
 	fmt.Println(lines, len(lines))
+
+	p := parser.NewParser(string(dat))
+	p.Parse()
+	fmt.Println("current command >>>>>", p.Current())
 
 	// Reading line by line
 	// reader := bufio.NewReader(dat)
